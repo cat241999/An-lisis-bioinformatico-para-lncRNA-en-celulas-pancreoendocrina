@@ -1,0 +1,16 @@
+#!/bin/bash
+ABUNDANCE=/home/surrea
+MATRIX=/home/surrea/MATRIX
+ENSAMBLE=/home/surrea/Ensamble
+/usr/local/src/trinityrnaseq-v2.13.2/util/abundance_estimates_to_matrix.pl \
+--est_method RSEM \
+--gene_trans_map /home/surrea/Ensamble/Ensamble.fasta.gene_trans_map \
+--cross_sample_norm TMM \
+--name_sample_by_basedir \
+--out_prefix $MATRIX/PAX6_results \
+$ABUNDANCE/NGS14-B660_align_abundance_result_R1/RSEM.isoforms.results \
+$ABUNDANCE/NGS14-B807_align_abundance_result_R1/RSEM.isoforms.results \
+$ABUNDANCE/NGS14-B808_align_abundance_result_R1/RSEM.isoforms.results \
+$ABUNDANCE/NGS14-B705_align_abundance_result_R1/RSEM.isoforms.results \
+$ABUNDANCE/NGS14-B706_align_abundance_result_R1/RSEM.isoforms.results \
+$ABUNDANCE/NGS14-B707_align_abundance_result_R1/RSEM.isoforms.results
