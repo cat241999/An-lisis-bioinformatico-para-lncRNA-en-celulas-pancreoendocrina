@@ -1,0 +1,66 @@
+#!/bin/bash
+DATA=/home/surrea/DATA_Pax6
+ensamble=/home/surrea/Ensamble
+mkdir -p /home/surrea/NGS14-B660_align_abundance_result_R1
+OUTPUT_DIR=/home/surrea/NGS14-B660_align_abundance_result_R1
+#NGS14-B660_smarter2_nextera_CGTACTAG_L006_R1_001_trimmed.fastq.gz
+#NGS14-B705_P_Q_AGGCAGAA_L004_R1_001_trimmed.fastq.gz
+#NGS14-B706_R_S_GGACTCCT_L004_R1_001_trimmed.fastq.gz
+#NGS14-B707_R_S_GGACTCCT_L004_R1_001_trimmed.fastq.gz
+#NGS14-B807_W_GGACTCCT_L007_R1_001_trimmed.fastq.gz
+#NGS14-B808_G_TCCTGAGC_L008_R1_001_trimmed.fastq.gz
+#Ensamble.fasta
+/usr/local/src/trinityrnaseq-v2.13.2/util/align_and_estimate_abundance.pl \
+--transcripts $ensamble/Ensamble.fasta \
+--seqType fq \
+--single $DATA/ NGS14-B660_smarter2_nextera_CGTACTAG_L006_R1_001_trimmed.fastq.gz \
+--est_method RSEM \
+--output_dir $OUTPUT_DIR \
+--aln_method bowtie2 \
+--trinity_mode \
+--prep_reference
+/usr/local/src/trinityrnaseq-v2.13.2/util/align_and_estimate_abundance.pl \
+--transcripts $ensamble/Ensamble.fasta \
+--seqType fq \
+--single $DATA/ NGS14-B705_P_Q_AGGCAGAA_L004_R1_001_trimmed.fastq.gz \
+--est_method RSEM \
+--output_dir $OUTPUT_DIR \
+--aln_method bowtie2 \
+--trinity_mode \
+--prep_reference
+/usr/local/src/trinityrnaseq-v2.13.2/util/align_and_estimate_abundance.pl \
+--transcripts $ensamble/Ensamble.fasta \
+--seqType fq \
+--single $DATA/NGS14-B706_R_S_GGACTCCT_L004_R1_001_trimmed.fastq.gz \
+--est_method RSEM \
+--output_dir $OUTPUT_DIR \
+--aln_method bowtie2 \
+--trinity_mode \
+--prep_reference
+/usr/local/src/trinityrnaseq-v2.13.2/util/align_and_estimate_abundance.pl \
+--transcripts $ensamble/Ensamble.fasta \
+--seqType fq \
+--single $DATA/NGS14-B707_R_S_GGACTCCT_L004_R1_001_trimmed.fastq.gz \
+--est_method RSEM \
+--output_dir $OUTPUT_DIR \
+--aln_method bowtie2 \
+--trinity_mode \
+--prep_reference
+/usr/local/src/trinityrnaseq-v2.13.2/util/align_and_estimate_abundance.pl \
+--transcripts $ensamble/Ensamble.fasta \
+--seqType fq \
+--single $DATA/NGS14-B807_W_GGACTCCT_L007_R1_001_trimmed.fastq.gz \
+--est_method RSEM \
+--output_dir $OUTPUT_DIR \
+--aln_method bowtie2 \
+--trinity_mode \
+--prep_reference
+/usr/local/src/trinityrnaseq-v2.13.2/util/align_and_estimate_abundance.pl \
+--transcripts $ensamble/Ensamble.fasta \
+--seqType fq \
+--single $DATA/ NGS14-B808_G_TCCTGAGC_L008_R1_001_trimmed.fastq.gz \
+--est_method RSEM \
+--output_dir $OUTPUT_DIR \
+--aln_method bowtie2 \
+--trinity_mode \
+--prep_reference
