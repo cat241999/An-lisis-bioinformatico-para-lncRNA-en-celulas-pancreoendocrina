@@ -1,0 +1,13 @@
+#!/bin/bash
+MATRIX=/media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/DE/DATA/MATRIX
+FILES=/media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/DE/DATA/MATRIX
+OUTPUT=/media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/DE/DESEQ2
+#matriz ---> PAX6_results.isoform.counts.matrix/
+#normalizada ---> PAX6_results.isoform.TMM.EXPR.matrix 
+#SAMPLES_PAX6.txt 
+#Calculo con DESeq
+/media/stephanie/TOSHIBA1/TESIS_1.0/TRINITY/trinityrnaseq-v2.15.1.FULL/trinityrnaseq-v2.15.1/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix $MATRIX/PAX6_results.isoform.counts.matrix --method DESeq2 --samples_file $FILES/SAMPLES_PAX6.txt \
+--output $OUTPUT/resultados_deseq2 --reference_sample 'PAX6_MUT'
+cd  $OUTPUT/resultados_deseq2
+/media/stephanie/TOSHIBA1/TESIS_1.0/TRINITY/trinityrnaseq-v2.15.1.FULL/trinityrnaseq-v2.15.1/Analysis/DifferentialExpression/analyze_diff_expr.pl --matrix $MATRIX/PAX6_results.isoform.TMM.EXPR.matrix -P 0.001 -C 2 --output $OUTPUT/resultados_deseq2/analyze_diff_pax6 \
+--samples $FILES/SAMPLES_PAX6.txt
