@@ -1,0 +1,14 @@
+#Script para crear subset fasta de ensamble con aquellos transcritos que no categorizados como lncRNA
+#Extraer los identificadores de todos los transcritos ensamblados
+grep '>' /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble/Ensamble.fasta > /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /ID_ensamble.txt
+#Extraer los identificadores de todos los transcritos lncRNA
+grep '>' /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /lncRNAs.fasta > /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /LncRNA_ID_ensamble.txt
+#Selecionar los ID no lncRNA ... OJO! es importantisimo la opcion -w ya que existen nombres de transcritos muy similares y eso puede dar la falsa idea de que los ID estas duplicados
+grep -v -w -f /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /ID_ensamble_lncRNA.txt /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /ID_ensamble.txt > /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /ID_ensamble_no_lncRNA.txt
+#Verificar numero de lineas
+wc -l /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /no_lncRNA_id_ensamble.txt #49409
+wc -l /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble / LncRNA_ID_ensamble.txt #56880
+wc -l /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /ID_ensamble.txt #106289
+##Remover con gedit (manualmente) el signo >, esto es necesario para generar el subset
+#crear subset con seqtk
+seqtk subseq /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /Ensamble.fasta /media/stephanie/TOSHIBA1/TESIS_1.0/RESULTADOS/subset_ensamble /no_lncRNA_id_ensamble.txt > Ensamble_no_LncRNA.fasta
