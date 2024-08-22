@@ -1,0 +1,10 @@
+#!/bin/bash
+#script de fastqc para los datos
+INPUT=/media/stephanie/TOSHIBA EXT/DATA_Pax6
+OUTPUT=/home/stephanie/Desktop/TESIS_1.0/FASTQC_TRIMMED
+fastqc -o $OUTPUT --noextract -f fastq $INPUT/NGS14-B660_smarter2_nextera_CGTACTAG_L006_R1_001_trimmed.fastq.gz \
+$INPUT/NGS14-B705_P_Q_AGGCAGAA_L004_R1_001_trimmed.fastq.gz \
+$INPUT/NGS14-B706_R_S_GGACTCCT_L004_R1_001_trimmed.fastq.gz \
+$INPUT/NGS14-B707_T_TAGGCATG_L004_R1_001_trimmed.fastq.gz \
+$INPUT/NGS14-B807_W_GGACTCCT_L007_R1_001_trimmed.fastq.gz \
+$INPUT/NGS14-B808_G_TCCTGAGC_L008_R1_001_trimmed.fastq.gz
