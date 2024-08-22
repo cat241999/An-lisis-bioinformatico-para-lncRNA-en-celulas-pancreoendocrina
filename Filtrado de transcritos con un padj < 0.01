@@ -1,0 +1,6 @@
+setwd("D:/TESIS_1.0/RESULTADOS/DE/DESEQ2/resultados_deseq2")
+data_padj <- read.table("s", header = TRUE, sep = "\t")
+head(data_padj) #48546 filas
+filtrado <- subset(data_padj, padj < 0.01) 
+head(filtrado)#2587 filas
+write.table(filtrado, file='Tabla_padj_filtrada.txt')
