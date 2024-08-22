@@ -1,0 +1,45 @@
+#!/bin/bash
+
+raw_data=/home/stephanie/Desktop/muestras_PAX6/PAX6_mut
+output_trimmed=/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt
+ensamble=/home/stephanie/Desktop/TESIS/Ensamble/Ensamble
+ALINEAMIENTO=/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/ALINEAMIENTO_BOWTIE
+ADAPTS=/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt
+fastqc=/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/RESULTADOS_QC_2_TRIMMED
+base_name_d1= NGS14-B660_smarter2_nextera_CGTACTAG_L006_R1_001_subset.fastq
+base_name_d2= NGS14-B705_P_Q_AGGCAGAA_L004_R1_001_subset.fastq
+base_name_d3= NGS14-B706_R_S_GGACTCCT_L004_R1_001_subset.fastq
+base_name_d4= NGS14-B707_T_TAGGCATG_L004_R1_001_subset.fastq
+base_name_d5= NGS14-B807_W_GGACTCCT_L007_R1_001_subset.fastq
+base_name_d6= NGS14-B808_G_TCCTGAGC_L008_R1_001_subset.fastq
+
+
+#base_name_d1
+cutadapt -u 12 -q 25 --trim-n --minimum-length 50 -b "file:/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt/adaptadores.fa" \
+-o $output_trimmed/$base_name_d1".gz" \
+$raw_data/ NGS14-B660_smarter2_nextera_CGTACTAG_L006_R1_001_subset.fastq 2> $output_trimmed\$base_name_d1".report.txt"
+#base_name_d2
+cutadapt -u 12 -q 25 --trim-n --minimum-length 50 -b "file:/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt/adaptadores.fa" \
+-o $output_trimmed/$base_name_d2".gz" \
+$raw_data/ NGS14-B705_P_Q_AGGCAGAA_L004_R1_001_subset.fastq 2> $output_trimmed\$base_name_d2".report.txt"
+#base_name_d3
+cutadapt -u 12 -q 25 --trim-n --minimum-length 50 -b "file:/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt/adaptadores.fa" \
+-o $output_trimmed/$base_name_d3".gz" \
+$raw_data/ NGS14-B706_R_S_GGACTCCT_L004_R1_001_subset.fastq
+2> $output_trimmed\$base_name_d3".report.txt"
+#base_name_d4
+cutadapt -u 12 -q 25 --trim-n --minimum-length 50 -b "file:/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt/adaptadores.fa" \
+-o $output_trimmed/$base_name_d4".gz" \
+$raw_data/ NGS14-B707_T_TAGGCATG_L004_R1_001_subset.fastq
+2> $output_trimmed\$base_name_d4".report.txt"
+
+#base_name_d5
+cutadapt -u 12 -q 25 --trim-n --minimum-length 50 -b "file:/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt/adaptadores.fa" \
+-o $output_trimmed/$base_name_d5".gz" \
+$raw_data/ NGS14-B807_W_GGACTCCT_L007_R1_001_subset.fastq
+2> $output_trimmed\$base_name_d5".report.txt"
+#base_name_d6
+cutadapt -u 12 -q 25 --trim-n --minimum-length 50 -b "file:/home/stephanie/Desktop/muestras_PAX6/PAX6_mut/resultados_cutadapt/adaptadores.fa" \
+-o $output_trimmed/$base_name_d6".gz" \
+$raw_data/ NGS14-B808_G_TCCTGAGC_L008_R1_001_subset.fastq
+2> $output_trimmed\$base_name_d6".report.txt"
