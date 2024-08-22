@@ -1,0 +1,7 @@
+#Extracción de los mRNA:
+grep -w “mRNA” Danio_rerio.GRCz11.109.gtf > mRNA_ZF.gtf
+#Extracción de los LncRNA
+Grep -w -f./ID_DE_lncRNA.txt Ensamble_forward_corregido.gtf > Ensamble_forward_lncRNA_only.gtf
+#Uso de FEELnc para clasificar a todos los LncRNA DE
+FEELnc_classifier.pl -i Ensamble_forward_lncRNA_only.gtf -a mRNA_ZF.gtf --window=1000000 --maxwindow=1000000 -b > GO_lncRNA_mRNA_zf_2.txt #Ensamble con todos los mrna de danio rerio
+
