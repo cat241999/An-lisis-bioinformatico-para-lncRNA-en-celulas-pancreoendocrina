@@ -1,0 +1,16 @@
+#!/bin/bash
+FILES_PATH=/home/surrea/DANIO_RERIO_DB
+cd $FILES_PATH #Con esto le decimos que abra la carpeta dentro de la dirección dada por FILES_PATH 
+#primero descargamos en la consola o terminal la secuencia que deseamos
+wget https://ftp.ensembl.org/pub/release-109/fasta/danio_rerio/pep/Danio_rerio.GRCz11.pep.all.fa.gz
+#descomprimimos el archivo
+gzip -d Danio_rerio.GRCz11.pep.all.fa.gz
+#creamos la base de datos 
+makeblastdb -in $FILES_PATH/Danio_rerio.GRCz11.pep.all.fa -dbtype 'prot' -out $FILES_PATH/Danio_rerio_pep_to_use
+INPUT=/home/surrea/subset_ensamble
+DB=/home/surrea/DANIO_RERIO_DB
+blastx \
+-query $INPUT/Ensamble_no_lncRNA.fasta \
+-db $DB/Danio_rerio_pep_to_use \
+-out $INPUT/Ensambl_pep_ZP_blast \
+-outfmt 7 -evalue 0.0001 -gapopen 11 -gapextend 1 -word_size 3 -matrix BLOSUM62 -num_threads 8 -max_target_seqs 1
