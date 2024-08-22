@@ -1,0 +1,5 @@
+#Extracción hecha directamente en la línea de comando
+grep -w 'start_codon' Danio_rerio.GRCz11.109.gtf | cut -d ',' -f1 | cut -f1,4,5,7-9 > start_codon_formated.txt
+#Ensayo de colocalización
+intersectBed -wa -wb -a lncRNAs_bed_formated.bed -b no_lncRNA_window_1MB.bed > intersectedBed_Coding1MB_lncRNA_DE.bed   
+
