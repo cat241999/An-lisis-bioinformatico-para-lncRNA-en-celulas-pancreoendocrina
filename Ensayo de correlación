@@ -1,0 +1,52 @@
+#script realizado en R studio
+library(Hmisc) #Correlacion
+library(reshape2) #Se cambió a reshape2. Para tablas
+#configuré mi session para trabajar en el directorio deseado (session>set working directoy>choose directory) 
+tpm_tabla_intersected_1 <- read.table("ExpressionData_TPM_lncRNA_no_lncRNA.txt", header = TRUE, sep = "\t") #Read table in a dataframe
+#ahora voy ajustar todo para q podamos calcular por separado la correlacion por tabla
+#tabla_1
+head(tpm_tabla_intersected_1)
+rnames_1 <- tpm_tabla_intersected_1[,1]                            # assign labels in column 1 to "rnames"
+rownames(tpm_tabla_intersected_1) <- rnames_1                 # assign row names 
+matrix_intersected_1 <- data.matrix(tpm_tabla_intersected_1[,2:7]) #seleccionar las columnas con los valores de expression
+head(matrix_intersected_1)
+#-------Calcular correlación------
+matrix_cor_1 <- rcorr(t(matrix_intersected_1), type="spearman") # ERROR. calcular correlacion con metodo spearman para cada par de genes (por eso se hace transposicion). Entrega valores de R y valores p
+correlation_rho_matrix_1 <- as.table(matrix_cor_1$r) #generar tabla de la variable r que contiene los valores de correlacion
+head(correlation_rho_matrix_1)
+
+write.table(correlation_rho_matrix_1, file="COR_matrix_rho_1")
+
+#-------Filtrar tabla ------------
+COR_rho_matrix_subset_test_1 <-correlation_rho_matrix_1[1:228,-1:-228] #selecciona las primeras 27 filas y señala con negativo lo que no debe incluir el otro grupo, dando solo los lncRNA # Mantener solo correlaciones lncRNA-coding. 225 primeros datos corresponden a codificantes y 306 restantes a lncRNA
+dim(COR_rho_matrix_subset_test_1) #Comprueba que matriz cambio de dimensiones
+head(COR_rho_matrix_subset_test_1) # Para comprobar que se mantengan todos los coding y todos los lncRNA
+tail(COR_rho_matrix_subset_test_1) # same 
+COR_rho_matrix_subset_test_2 <- melt(COR_rho_matrix_subset_test_1) #melt/pivot para generar un tabla de 3 columnas
+head(COR_rho_matrix_subset_test_2)
+tail(COR_rho_matrix_subset_test_2)
+#-------p-value-----------------
+correlation_P_matrix_1 <- as.table(matrix_cor_1$P)
+head(correlation_P_matrix_1)
+dim(correlation_P_matrix_1)
+correlation_P_matrix_subset_test_1 <-correlation_P_matrix_1[1:228,-1:-228]
+dim(correlation_P_matrix_subset_test_1 )
+correlation_P_matrix_subset_test_2 <- melt(correlation_P_matrix_subset_test_1 )
+head(correlation_P_matrix_subset_test_2)
+tail(correlation_P_matrix_subset_test_2)
+#-----Unir valores de R y de p-------
+tabla_p_r_1 <- cbind.data.frame(COR_rho_matrix_subset_test_2, correlation_P_matrix_subset_test_2$value)#unir tanto la tabla de rho values como la d p-values
+head(tabla_p_r_1)
+names(tabla_p_r_1) <- c("Coding_ID","lncRNA_ID","Rho", "p_value") #asignar nombres a las colunnas
+head(tabla_p_r_1)
+write.table(tabla_p_r_1, file="tabla_rho_p_value_1.txt")
+#----Filtro segun valores de R---------
+test_select <- subset(tabla_p_r_1, Rho >= 0.8 | Rho <= -0.8) #seleccionar relaciones que valores de correlacion mayores a 0.95 o menor 0.95
+head(test_select)
+test_select$rho
+#names(test_select) <- c("Coding_cor","lncRNA_cor","Rho","Coding_p-Value","lncRNA_p-Value","p_value") #asigne denuevo porque el p-value debe tener un _ si no se lee como un menos!
+test_select2 <- subset(test_select, p_value < 0.05)
+head(test_select2)
+test_select2$p_value
+dim(test_select2)
+write.table(test_select2, file='Tabla_correlacion_Filtrada_1mb.txt') #escribir la tabla!
