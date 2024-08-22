@@ -1,0 +1,14 @@
+#!/bin/bash
+MATRIX=/home/surrea/MATRIX
+SAMPLE_FILE=/home/surrea/MATRIX
+#SAMPLES_PAX6_WT_MUT.txt
+#PAX6_results.isoform.counts.matrix
+/usr/local/src/trinityrnaseq-v2.13.2/Analysis/DifferentialExpression/PtR --matrix /home/surrea/MATRIX/PAX6_results.isoform.counts.matrix \
+--samples /home/surrea/MATRIX/SAMPLES_PAX6_WT_MUT.txt --CPM --log2 \
+--min_rowSums 10 \
+--compare_replicates #comparación entre muestras de igual condicion
+/usr/local/src/trinityrnaseq-v2.13.2/Analysis/DifferentialExpression/PtR \
+--matrix /home/surrea/MATRIX/PAX6_results.isoform.counts.matrix \
+--min_rowSums 10 \
+-s /home/surrea/MATRIX/SAMPLES_PAX6_WT_MUT.txt --log2 --CPM --sample_cor_matrix 
+#comparación a lo largo de todas las muestras
